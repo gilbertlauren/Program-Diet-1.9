@@ -137,7 +137,18 @@ void insertname(char name[]) {
    	current->next = link; 
 }
 
+void display() {
+   struct node *ptr = head;
 
+   printf("\n[head] =>");
+   //start from the beginning
+   while(ptr != NULL) {
+      printf(" %d %f %f %s\n",ptr->number,ptr->bmrs,ptr->calorie,ptr->Name);
+      ptr = ptr->next;
+   }
+
+   printf(" [null]\n");
+}
 
 
 
@@ -239,7 +250,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 
 			GetWindowText(hNama, Databmr.Name[i], 32);
 			i+=1;
-          	
+          	insertname(Databmr.Name[i]);
 			GetWindowText(hUmur, out, 32);
 			num1 = strtof(out, NULL);
 			
@@ -284,7 +295,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 			
 			Databmr.bmrs[j] = bmr;
 			j+=1;
-
+			insertbmrs(j-1, bmr);
 
 			SetWindowText(hBMR, buf);
 			break;
@@ -310,6 +321,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 			
 
 			Databmr.calorie[j-1] = hasil;
+			insertcalorie(hasil);
 			
 			if (hasil==0){
 				MessageBox(hWnd, "Missing Input","Error", MB_ICONERROR);
@@ -429,6 +441,9 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 				int no = i+1;
 				printf(" %d  nama = %s \t bmr = %f \t hasil = %f\n",no, Databmr.Name[i], Databmr.bmrs[i], Databmr.calorie[i]);
 			}
+			display();
+			
+			
 			break;
 
 		case SAVEFILE:
@@ -987,4 +1002,3 @@ void online(){
 	printf("[+] Connected To Server.\t(Success)\n\n\n\n");
 
 }
-
